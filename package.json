@@ -1,0 +1,95 @@
+{
+	"name": "jira-commit-prefix",
+	"displayName": "Jira Commit Prefix",
+	"description": "Prefix commit message with value in branch name.",
+	"version": "1.1.0",
+	"publisher": "emilianox",
+	"author": {
+		"name": "Emiliano Fernandez"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/srmeyers/git-prefix/blob/master/README.md",
+	"bugs": {
+		"url": "https://github.com/srmeyers/git-prefix/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/srmeyers/git-prefix.git"
+	},
+	"engines": {
+		"vscode": "^1.32.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "images/icon.png",
+	"preview": false,
+	"galleryBanner": {
+		"color": "#f0efe7",
+		"theme": "light"
+	},
+	"keywords": [
+		"git",
+		"jira"
+	],
+	"activationEvents": [
+		"onCommand:jiraBranchCommitPrefix.setMessage"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "JiraBranchCommitPrefix",
+			"properties": {
+				"jiraBranchCommitPrefix.pattern": {
+					"type": "string",
+					"default": "",
+					"description": "A regular expression to extract from branch name. Should match entire branch."
+				},
+				"jiraBranchCommitPrefix.replacementEval": {
+					"type": "string",
+					"default": "/[a-zA-Z0-9 ,]$/g",
+					"description": "Content to replace in commit message."
+				},
+				"jiraBranchCommitPrefix.replacementExpr": {
+					"type": "string",
+					"default": "$&",
+					"description": "Content to place in commit message."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "jiraBranchCommitPrefix.setMessage",
+				"title": "Jira Branch Prefix Commit Message",
+				"icon": {
+					"dark": "images/prefix-commit.svg",
+					"light": "images/prefix-commit_light.svg"
+				}
+			}
+		],
+		"menus": {
+			"scm/title": [
+				{
+					"command": "jiraBranchCommitPrefix.setMessage",
+					"when": "scmProvider == git",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^10.12.21",
+		"tslint": "^5.17.0",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	}
+}
