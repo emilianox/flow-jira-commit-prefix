@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { GitExtension, Repository } from './api/git';
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('jiraBranchCommitPrefix.setMessage', async (uri?) => {
+	let disposable = vscode.commands.registerCommand('flowJiraCommitPrefix.setMessage', async (uri?) => {
 		const git = getGitExtension();
 
 		if (!git) {
@@ -38,15 +38,15 @@ const convertStringToRegExp =  (input:string) => {
 };
 
 async function prefixCommit(repository: Repository) {
-	const branchRegEx = vscode.workspace.getConfiguration().get("jiraBranchCommitPrefix.pattern")
-		? convertStringToRegExp(vscode.workspace.getConfiguration().get("jiraBranchCommitPrefix.pattern") as string)
+	const branchRegEx = vscode.workspace.getConfiguration().get("flowJiraCommitPrefix.pattern")
+		? convertStringToRegExp(vscode.workspace.getConfiguration().get("flowJiraCommitPrefix.pattern") as string)
 		:  /^(feature|hotfix|bugfix|release|custom)|((?!([A-Z0-9]{1,10})-?$)[A-Z]{1}[A-Z0-9]+-\d+)/g;
 
-	const replacementEval: RegExp | string = vscode.workspace.getConfiguration().get("jiraBranchCommitPrefix.replacementEval")
-		?convertStringToRegExp(vscode.workspace.getConfiguration().get("jiraBranchCommitPrefix.replacementEval") as string)
+	const replacementEval: RegExp | string = vscode.workspace.getConfiguration().get("flowJiraCommitPrefix.replacementEval")
+		?convertStringToRegExp(vscode.workspace.getConfiguration().get("flowJiraCommitPrefix.replacementEval") as string)
 		: '';
 
-	const replacementExpr: string = vscode.workspace.getConfiguration().get("jiraBranchCommitPrefix.replacementExpr") || '';
+	const replacementExpr: string = vscode.workspace.getConfiguration().get("flowJiraCommitPrefix.replacementExpr") || '';
 	const branchName = repository.state.HEAD && repository.state.HEAD.name || '';
 
 	if (branchRegEx.test(branchName)) {
@@ -61,7 +61,7 @@ async function prefixCommit(repository: Repository) {
 		let result = await vscode.window.showErrorMessage(message, { modal: false }, editPattern);
 		if (result === editPattern) {
 			await vscode.commands.executeCommand('settings.action.clearSearchResults');
-			await vscode.commands.executeCommand("workbench.action.openSettings", 'jiraBranchCommitPrefix');
+			await vscode.commands.executeCommand("workbench.action.openSettings", 'flowJiraCommitPrefix');
 		}
 	}
 }
