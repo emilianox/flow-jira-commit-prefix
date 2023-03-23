@@ -2,7 +2,7 @@
   "name": "flow-jira-commit-prefix",
   "displayName": "Flow / Jira Commit Prefix",
   "description": "Prefix commit message with value in branch name.",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "publisher": "emilianox",
   "author": {
     "name": "Emiliano Fernandez"
@@ -42,23 +42,23 @@
       "properties": {
         "flowJiraCommitPrefix.pattern": {
           "type": "string",
-          "default": "",
+          "default": "/^(?:feature|hotfix|bugfix|release|custom)\\/([a-zA-Z0-9]+-?\\d+)/",
           "description": "A regular expression to extract from branch name. Should match entire branch."
         },
         "flowJiraCommitPrefix.replacementEval": {
           "type": "string",
-          "default": "/[a-zA-Z0-9 ,]$/g",
+          "default": "",
           "description": "Content to replace in commit message."
         },
         "flowJiraCommitPrefix.replacementExpr": {
           "type": "string",
-          "default": "$&",
+          "default": "",
           "description": "Content to place in commit message."
         },
         "flowJiraCommitPrefix.separator": {
           "type": "string",
           "default": " ",
-          "description": "Separator between prexix and commit message."
+          "description": "Separator between prefix and commit message."
         }
       }
     },
@@ -88,19 +88,22 @@
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "test-unit": "mocha --recursive ./out/test/unit"
   },
   "devDependencies": {
-    "@types/vscode": "^1.76.0",
+    "@types/chai": "^4.3.4",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "@vscode/test-electron": "^2.2.3",
+    "chai": "^4.3.7",
     "eslint": "^8.34.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^4.9.5",
-    "@vscode/test-electron": "^2.2.3"
+    "typescript": "^4.9.5"
   }
 }
