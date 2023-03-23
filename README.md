@@ -29,6 +29,8 @@ This extension contributes the following settings using JavaScript regular expre
 * `flowJiraCommitPrefix.pattern`: A regular expression to extract from branch name. Should match entire branch.
 * `flowJiraCommitPrefix.replacementEval` : Content to replace in commit message.
 * `flowJiraCommitPrefix.replacementExpr` : Content to place in commit message.
+* `flowJiraCommitPrefix.separator` : Separator between prexix and commit message default in ' '.
+
 
 
 **Happy Committing!**

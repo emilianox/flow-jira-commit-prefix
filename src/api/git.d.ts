@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { Uri, SourceControlInputBox, Event, CancellationToken } from 'vscode';
+import { Uri, Event, CancellationToken } from 'vscode';
 
 export interface Git {
 	readonly path: string;

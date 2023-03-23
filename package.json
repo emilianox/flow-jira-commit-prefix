@@ -1,96 +1,106 @@
 {
-	"name": "flow-jira-commit-prefix",
-	"displayName": "Flow / Jira Commit Prefix",
-	"description": "Prefix commit message with value in branch name.",
-	"version": "0.0.5",
-	"publisher": "emilianox",
-	"author": {
-		"name": "Emiliano Fernandez"
-	},
-	"license": "MIT",
-	"homepage": "https://github.com/emilianox/flow-jira-commit-prefix/blob/develop/README.md",
-	"bugs": {
-		"url": "https://github.com/emilianox/flow-jira-commit-prefix/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/emilianox/flow-jira-commit-prefix.git"
-	},
-	"engines": {
-		"vscode": "^1.32.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"icon": "images/icon.png",
-	"preview": false,
-	"galleryBanner": {
-		"color": "#f0efe7",
-		"theme": "light"
-	},
-	"keywords": [
-		"git",
-		"jira",
-		"flow"
-	],
-	"activationEvents": [
-		"onCommand:flowJiraCommitPrefix.setMessage"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"configuration": {
-			"type": "object",
-			"title": "flowJiraCommitPrefix",
-			"properties": {
-				"flowJiraCommitPrefix.pattern": {
-					"type": "string",
-					"default": "",
-					"description": "A regular expression to extract from branch name. Should match entire branch."
-				},
-				"flowJiraCommitPrefix.replacementEval": {
-					"type": "string",
-					"default": "/[a-zA-Z0-9 ,]$/g",
-					"description": "Content to replace in commit message."
-				},
-				"flowJiraCommitPrefix.replacementExpr": {
-					"type": "string",
-					"default": "$&",
-					"description": "Content to place in commit message."
-				}
-			}
-		},
-		"commands": [
-			{
-				"command": "flowJiraCommitPrefix.setMessage",
-				"title": "Jira / Flow Branch Prefix Commit Message",
-				"icon": {
-					"dark": "images/prefix-commit.svg",
-					"light": "images/prefix-commit_light.svg"
-				}
-			}
-		],
-		"menus": {
-			"scm/title": [
-				{
-					"command": "flowJiraCommitPrefix.setMessage",
-					"when": "scmProvider == git",
-					"group": "navigation"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"test": "npm run compile && node ./node_modules/vscode/bin/test"
-	},
-	"devDependencies": {
-		"@types/mocha": "^2.2.42",
-		"@types/node": "^10.12.21",
-		"tslint": "^5.17.0",
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28"
-	}
+  "name": "flow-jira-commit-prefix",
+  "displayName": "Flow / Jira Commit Prefix",
+  "description": "Prefix commit message with value in branch name.",
+  "version": "0.0.6",
+  "publisher": "emilianox",
+  "author": {
+    "name": "Emiliano Fernandez"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/emilianox/flow-jira-commit-prefix/blob/develop/README.md",
+  "bugs": {
+    "url": "https://github.com/emilianox/flow-jira-commit-prefix/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emilianox/flow-jira-commit-prefix.git"
+  },
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/icon.png",
+  "preview": false,
+  "galleryBanner": {
+    "color": "#f0efe7",
+    "theme": "light"
+  },
+  "keywords": [
+    "git",
+    "jira",
+    "flow"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "flowJiraCommitPrefix",
+      "properties": {
+        "flowJiraCommitPrefix.pattern": {
+          "type": "string",
+          "default": "",
+          "description": "A regular expression to extract from branch name. Should match entire branch."
+        },
+        "flowJiraCommitPrefix.replacementEval": {
+          "type": "string",
+          "default": "/[a-zA-Z0-9 ,]$/g",
+          "description": "Content to replace in commit message."
+        },
+        "flowJiraCommitPrefix.replacementExpr": {
+          "type": "string",
+          "default": "$&",
+          "description": "Content to place in commit message."
+        },
+        "flowJiraCommitPrefix.separator": {
+          "type": "string",
+          "default": " ",
+          "description": "Separator between prexix and commit message."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "flowJiraCommitPrefix.setMessage",
+        "title": "Jira / Flow Branch Prefix Commit Message",
+        "icon": {
+          "dark": "images/prefix-commit.svg",
+          "light": "images/prefix-commit_light.svg"
+        }
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "flowJiraCommitPrefix.setMessage",
+          "when": "scmProvider == git",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.76.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5",
+    "@vscode/test-electron": "^2.2.3"
+  }
 }
